@@ -27,6 +27,28 @@ public class TimetableTest {
     }
 
     @Test
+    void testGetTrainingSessionsForDayMultipleSessionsAtSameTime() {
+        Timetable timetable = new Timetable();
+
+        Coach coach = new Coach("Васильев", "Николай", "Сергеевич");
+        Group groupChild = new Group("Акробатика для детей", Age.CHILD, 60);
+        Group groupAdult = new Group("Акробатика для взрослых", Age.ADULT, 90);
+
+        TrainingSession childSession = new TrainingSession(groupChild, coach,
+                DayOfWeek.MONDAY, new TimeOfDay(13, 0));
+        TrainingSession adultSession = new TrainingSession(groupAdult, coach,
+                DayOfWeek.MONDAY, new TimeOfDay(13, 0));
+
+        timetable.addNewTrainingSession(childSession);
+        timetable.addNewTrainingSession(adultSession);
+
+        List<TrainingSession> mondaySessions = timetable.getTrainingSessionsForDay(DayOfWeek.MONDAY);
+        Assertions.assertEquals(2, mondaySessions.size());
+        Assertions.assertTrue(mondaySessions.contains(childSession));
+        Assertions.assertTrue(mondaySessions.contains(adultSession));
+    }
+
+    @Test
     void testGetTrainingSessionsForDayMultipleSessions() {
         Timetable timetable = new Timetable();
 
@@ -73,11 +95,34 @@ public class TimetableTest {
 
         timetable.addNewTrainingSession(singleTrainingSession);
 
-        TrainingSession found = timetable.getTrainingSessionsForDayAndTime(DayOfWeek.MONDAY, new TimeOfDay(13, 0));
-        Assertions.assertEquals(singleTrainingSession, found);
+        List<TrainingSession> found = timetable.getTrainingSessionsForDayAndTime(DayOfWeek.MONDAY, new TimeOfDay(13, 0));
+        Assertions.assertEquals(1, found.size());
+        Assertions.assertEquals(singleTrainingSession, found.get(0));
 
-        TrainingSession notFound = timetable.getTrainingSessionsForDayAndTime(DayOfWeek.MONDAY, new TimeOfDay(14, 0));
-        Assertions.assertNull(notFound);
+        List<TrainingSession> notFound = timetable.getTrainingSessionsForDayAndTime(DayOfWeek.MONDAY, new TimeOfDay(14, 0));
+        Assertions.assertTrue(notFound.isEmpty());
+    }
+
+    @Test
+    void testGetTrainingSessionsForDayAndTimeMultipleAtSameTime() {
+        Timetable timetable = new Timetable();
+
+        Coach coach = new Coach("Васильев", "Николай", "Сергеевич");
+        Group groupChild = new Group("Акробатика для детей", Age.CHILD, 60);
+        Group groupAdult = new Group("Акробатика для взрослых", Age.ADULT, 90);
+
+        TrainingSession childSession = new TrainingSession(groupChild, coach,
+                DayOfWeek.MONDAY, new TimeOfDay(13, 0));
+        TrainingSession adultSession = new TrainingSession(groupAdult, coach,
+                DayOfWeek.MONDAY, new TimeOfDay(13, 0));
+
+        timetable.addNewTrainingSession(childSession);
+        timetable.addNewTrainingSession(adultSession);
+
+        List<TrainingSession> found = timetable.getTrainingSessionsForDayAndTime(DayOfWeek.MONDAY, new TimeOfDay(13, 0));
+        Assertions.assertEquals(2, found.size());
+        Assertions.assertTrue(found.contains(childSession));
+        Assertions.assertTrue(found.contains(adultSession));
     }
 
     @Test
