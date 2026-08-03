@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.*;
 
 public class TimetableTest {
-
+    //Добавлены тесты
     @Test
     void testGetTrainingSessionsForDaySingleSession() {
         Timetable timetable = new Timetable();
