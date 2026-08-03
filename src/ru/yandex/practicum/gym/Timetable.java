@@ -14,7 +14,7 @@ public class Timetable {
                 .add(trainingSession);
     }
 
-    public Collection<TrainingSession> getTrainingSessionsForDay(DayOfWeek dayOfWeek) {
+    public List<TrainingSession> getTrainingSessionsForDay(DayOfWeek dayOfWeek) {
         TreeMap<TimeOfDay, List<TrainingSession>> dayTimetable = timetable.get(dayOfWeek);
         if (dayTimetable == null) {
             return Collections.emptyList();

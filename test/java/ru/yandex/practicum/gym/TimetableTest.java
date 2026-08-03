@@ -1,7 +1,8 @@
-package ru.yandex.practicum.gym;
+package java.ru.yandex.practicum.gym;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import ru.yandex.practicum.gym.*;
 
 import java.util.*;
 
