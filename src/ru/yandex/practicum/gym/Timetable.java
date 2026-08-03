@@ -3,7 +3,7 @@ package ru.yandex.practicum.gym;
 import java.util.*;
 
 public class Timetable {
-
+    //Добавлен список
     private final HashMap<DayOfWeek, TreeMap<TimeOfDay, List<TrainingSession>>> timetable = new HashMap<>();
 
     public void addNewTrainingSession(TrainingSession trainingSession) {
